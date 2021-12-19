@@ -1,2 +1,2 @@
 # nrk-sapmi-crawler
-Crawler for Sapmi news stubs that will be the basis for Sami stopword lists.
+Crawler for Sapmi news bulletin that will be the basis for Sami stopword lists and an example search engine for content in Sami.
