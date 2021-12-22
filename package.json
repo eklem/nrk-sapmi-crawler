@@ -1,0 +1,32 @@
+{
+  "name": "nrk-sapmi-crawler",
+  "version": "0.0.1",
+  "description": "Crawler for NRK Sapmi news bulletins that will be the basis for Sami stopword lists and an example search engine for content in Sami.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eklem/nrk-sapmi-crawler.git"
+  },
+  "dependencies": {
+    "batr": "^2.0.0",
+    "node-fetch": "^3.1.0",
+    "words-n-numbers": "^6.0.2"
+  },
+  "keywords": [
+    "nlp",
+    "sami",
+    "sapmi",
+    "crawler",
+    "nrk"
+  ],
+  "author": "Espen Klem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eklem/nrk-sapmi-crawler/issues"
+  },
+  "homepage": "https://github.com/eklem/nrk-sapmi-crawler#readme"
+}
