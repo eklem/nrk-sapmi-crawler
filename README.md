@@ -9,6 +9,7 @@ Will crawl news bulletins in [Northern Sami](https://www.nrk.no/sapmi/o__asat---
 
 const southSami = {
   id: 1.13572943,
+  languageName: 'Åarjelsaemien',
   url: 'https://www.nrk.no/serum/api/content/json/1.13572943?v=2&limit=1000&context=items',
   file: './lib/list.southSami.json'
 }
@@ -22,7 +23,7 @@ const southSami = {
 // ... writing
 Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).catch(e => e)])
   .then((data) => {
-    calculateListAndWrite(data, southSami.id, southSami.file)
+    calculateListAndWrite(data, southSami.id, southSami.file, southSami.languageName)
   })
   .catch(function (err) {
     console.log('Error: ' + err)

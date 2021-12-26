@@ -32,7 +32,7 @@ async function readIfExists (fileName) {
 
 // calculate array of objects to write
 // write it
-async function calculateListAndWrite (data, parentId, fileName) {
+async function calculateListAndWrite (data, languageId, fileName, languageName) {
   let IdsToWrite = []
   let crawledIds = []
   let writeCount = 0
@@ -40,7 +40,8 @@ async function calculateListAndWrite (data, parentId, fileName) {
     const newObj = {}
     newObj.id = Number(obj.id)
     newObj.unixTime = new Date(obj.created).getTime()
-    newObj.parentId = parentId
+    newObj.languageId = languageId
+    newObj.languageName = languageName
     newObj.crawled = false
     return newObj
   })
