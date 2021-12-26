@@ -18,13 +18,12 @@ async function getList (url) {
 }
 
 // Read local file with already stored article IDs
-// If it doesn't exist, it's created
+// If it doesn't exist, do nothing here. It's created when written.
 async function readIfExists (fileName) {
   try {
     const data = JSON.parse(await readFile(fileName))
     return data
   } catch (err) {
-    // If i.e. file doesn't exists
     console.error('File doesn\'t exist? Error: ' + err)
     // used in function calculateListAndWrite
     startingFromScratch = true
@@ -42,12 +41,11 @@ async function calculateListAndWrite (data, startingFromScratch, crawledIds, Ids
     newObj.crawled = false
     return newObj
   })
-  // console.log(crawledIds)
 
   // weave together if necessary
   if (!startingFromScratch) {
     console.log('start from scratch: ' + startingFromScratch)
-    // console.log(data)
+
     // Go through crawledIds and push objects to array
     IdsToWrite = data[1]
     crawledIds.forEach(crawledObj => {
@@ -69,13 +67,6 @@ async function calculateListAndWrite (data, startingFromScratch, crawledIds, Ids
   } catch (err) {
     console.error(err)
   }
-}
-
-// if object not included in array -> true/false
-// Do something like this: cases.hitFound = itemArr.some(word => queryArr.includes(word))
-// ... or check this one: https://www.tutorialrepublic.com/faq/how-to-check-if-an-array-includes-an-object-in-javascript.php
-function notIncludedInArray () {
-  // if
 }
 
 // Bringing it all together, fetching URL and reading file
