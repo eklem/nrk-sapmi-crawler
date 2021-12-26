@@ -1,5 +1,9 @@
 import fetch from 'node-fetch'
 import { readFile, writeFile } from 'fs/promises'
+const options = {
+  'user-agent': 'nrk-sapmi-crawler/0.1 - https://github.com/eklem/nrk-sapmi-crawler'
+}
+
 const parentId = 1.13572943
 const url = 'https://www.nrk.no/serum/api/content/json/' + parentId + '?v=2&limit=1000&context=items'
 const fileName = './lib/list.' + parentId + '.json'
@@ -8,8 +12,8 @@ const crawledIds = []
 const IdsToWrite = []
 
 // Get list of article IDs from NRK
-async function getList (url) {
-  const response = await fetch(url)
+async function getList (url, options) {
+  const response = await fetch(url, options)
   // console.log(response)
   const data = await response.json()
   console.log('Response Code: ', response.status)
@@ -70,7 +74,7 @@ async function calculateListAndWrite (data, startingFromScratch, crawledIds, Ids
 }
 
 // Bringing it all together, fetching URL and reading file
-Promise.all([getList(url), readIfExists(fileName).catch(e => e)])
+Promise.all([getList(url, options), readIfExists(fileName).catch(e => e)])
   .then((data) => {
     // console.log(data[0].relations)
     // console.log(data[0])
