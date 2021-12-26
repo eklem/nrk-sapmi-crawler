@@ -4,7 +4,7 @@ import { readFile, writeFile } from 'fs/promises'
 let startingFromScratch = false
 
 const fetchOptions = {
-  'user-agent': 'nrk-sapmi-crawler/0.0.2 - https://github.com/eklem/nrk-sapmi-crawler'
+  'user-agent': 'nrk-sapmi-crawler/0.0.4 - https://github.com/eklem/nrk-sapmi-crawler'
 }
 
 // Get list of article IDs from NRK
