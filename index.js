@@ -1,15 +1,11 @@
 import fetch from 'node-fetch'
 import { readFile, writeFile } from 'fs/promises'
-const options = {
-  'user-agent': 'nrk-sapmi-crawler/0.1 - https://github.com/eklem/nrk-sapmi-crawler'
-}
 
-const parentId = 1.13572943
-const url = 'https://www.nrk.no/serum/api/content/json/' + parentId + '?v=2&limit=1000&context=items'
-const fileName = './lib/list.' + parentId + '.json'
 let startingFromScratch = false
-const crawledIds = []
-const IdsToWrite = []
+
+const fetchOptions = {
+  'user-agent': 'nrk-sapmi-crawler/0.0.2 - https://github.com/eklem/nrk-sapmi-crawler'
+}
 
 // Get list of article IDs from NRK
 async function getList (url, options) {
@@ -36,7 +32,10 @@ async function readIfExists (fileName) {
 
 // calculate array of objects to write
 // write it
-async function calculateListAndWrite (data, startingFromScratch, crawledIds, IdsToWrite, parentId, fileName) {
+async function calculateListAndWrite (data, parentId, fileName) {
+  let IdsToWrite = []
+  let crawledIds = []
+  let writeCount = 0
   crawledIds = data[0].relations.map(obj => {
     const newObj = {}
     newObj.id = Number(obj.id)
@@ -54,16 +53,21 @@ async function calculateListAndWrite (data, startingFromScratch, crawledIds, Ids
     IdsToWrite = data[1]
     crawledIds.forEach(crawledObj => {
       if (data[1].some(readObj => readObj.id === crawledObj.id)) {
-        console.log(crawledObj.id + ' already in readObj')
+        // console.log(crawledObj.id + ' already in readObj')
       } else {
         IdsToWrite.push(crawledObj)
+        writeCount++
       }
     })
     // Sort on ID
     IdsToWrite.sort((secondItem, firstItem) => firstItem.id - secondItem.id)
   } else {
     IdsToWrite = crawledIds
+    writeCount = IdsToWrite.length
   }
+
+  console.log('documents to write: ' + writeCount)
+
   // write to file
   try {
     const promise = writeFile(fileName, JSON.stringify(IdsToWrite))
@@ -73,14 +77,4 @@ async function calculateListAndWrite (data, startingFromScratch, crawledIds, Ids
   }
 }
 
-// Bringing it all together, fetching URL and reading file
-Promise.all([getList(url, options), readIfExists(fileName).catch(e => e)])
-  .then((data) => {
-    // console.log(data[0].relations)
-    // console.log(data[0])
-    calculateListAndWrite(data, startingFromScratch, crawledIds, IdsToWrite, parentId, fileName)
-  })
-  .catch(function (err) {
-    // rejection
-    console.log('Error: ' + err)
-  })
+export { getList, readIfExists, calculateListAndWrite, fetchOptions }
