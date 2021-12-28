@@ -1,7 +1,7 @@
 import { getList, readIfExists, calculateListAndWrite, fetchOptions } from '../index.js'
 
 const southSami = {
-  id: 1.13572943,
+  id: '1.13572943',
   languageName: 'Åarjelsaemien',
   url: 'https://www.nrk.no/serum/api/content/json/1.13572943?v=2&limit=1000&context=items',
   file: './test/lib/list.southSami.json'

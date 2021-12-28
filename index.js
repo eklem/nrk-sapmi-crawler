@@ -38,7 +38,7 @@ async function calculateListAndWrite (data, languageId, fileName, languageName) 
   let writeCount = 0
   crawledIds = data[0].relations.map(obj => {
     const newObj = {}
-    newObj.id = Number(obj.id)
+    newObj.id = obj.id
     newObj.unixTime = new Date(obj.created).getTime()
     newObj.languageId = languageId
     newObj.languageName = languageName
