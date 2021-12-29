@@ -1,4 +1,6 @@
 # nrk-sapmi-crawler
+[![tests](https://github.com/eklem/nrk-sapmi-crawler/actions/workflows/tests.yml/badge.svg)](https://github.com/eklem/nrk-sapmi-crawler/actions/workflows/tests.yml)
+
 Crawler for [NRK Sapmi news bulletins](https://www.nrk.no/sapmi/samegillii/) that will be the basis for [stopword-sami](https://github.com/eklem/stopword-sami) and an example search engine for content in Sami.
 
 Will crawl news bulletins in [Northern Sami](https://www.nrk.no/sapmi/o__asat---davvisamegillii-1.13572949), [Lule Sami](https://www.nrk.no/sapmi/adasa---julevsabmaj-1.13572946) and [South Sami](https://www.nrk.no/sapmi/saernie---aarjelsaemien-1.13572943).
@@ -23,7 +25,7 @@ Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).
     console.log('Error: ' + err)
   })
  ```
-
+ 
  ## To change user-agent for the crawler
 ```javaScript
 fetchOptions['user-agent'] = 'name of crawler/version - comment (i.e. contact-info)'
