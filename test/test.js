@@ -1,3 +1,4 @@
+import test from 'ava'
 import { getList, readIfExists, calculateListAndWrite, fetchOptions } from '../index.js'
 
 const southSami = {
@@ -7,17 +8,23 @@ const southSami = {
   file: './test/lib/list.southSami.json'
 }
 
-// To change user-agent for the crawler
-// fetchOptions['user-agent'] = 'name of crawler/version - comment (i.e. contact-info)'
-
-// Bringing it all together, fetching URL and reading file
-// ... then setting up array of crawledIds objects
-// ... sorting
-// ... writing
-Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).catch(e => e)])
-  .then((data) => {
-    calculateListAndWrite(data, southSami.id, southSami.file, southSami.languageName)
-  })
-  .catch(function (err) {
-    console.log('Error: ' + err)
-  })
+test('1: Fetch JSON, read file and compare object in read array 2: Compare length of array read 3: Compare length of array crawled', t => {
+  t.plan(3)
+  return Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).catch(e => e)])
+    .then((data) => {
+      calculateListAndWrite(data, southSami.id, southSami.file, southSami.languageName)
+      return (data)
+    })
+    .then((data) => {
+      const readObject = data[1].filter(obj => obj.id === '1.15778840')
+      const expected = [{ id: '1.15778840', unixTime: 1639919176000, languageId: '1.13572943', languageName: 'Åarjelsaemien', crawled: false }]
+      console.log(readObject)
+      console.log(expected)
+      t.deepEqual(readObject, expected)
+      t.assert(data[1].length >= 375)
+      t.assert(data[0].relations.length >= 375)
+    })
+    .catch(function (err) {
+      console.log('Error: ' + err)
+    })
+})

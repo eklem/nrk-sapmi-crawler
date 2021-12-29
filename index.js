@@ -7,14 +7,30 @@ const fetchOptions = {
   'user-agent': 'nrk-sapmi-crawler/0.0.4 - https://github.com/eklem/nrk-sapmi-crawler'
 }
 
+// To throw an HTTPResponseError if response != ok
+class HTTPResponseError extends Error {
+  constructor (response, ...args) {
+    super(`HTTP Error Response: ${response.status} ${response.statusText}`, ...args)
+    this.response = response
+  }
+}
+
 // Get list of article IDs from NRK
 async function getList (url, options) {
-  const response = await fetch(url, options)
-  // console.log(response)
-  const data = await response.json()
-  console.log('Response Code: ', response.status)
-  console.log('Response Message: ', response.statusText)
-  return data
+  try {
+    const response = await fetch(url, options)
+    // console.log(response)
+    if (response.ok) {
+      const data = await response.json()
+      console.log('Response Code: ', response.status)
+      console.log('Response Message: ', response.statusText)
+      return data
+    } else {
+      throw new HTTPResponseError(response)
+    }
+  } catch (err) {
+    console.log('Error while fetching: ' + err)
+  }
 }
 
 // Read local file with already stored article IDs
@@ -33,9 +49,10 @@ async function readIfExists (fileName) {
 // calculate array of objects to write
 // write it
 async function calculateListAndWrite (data, languageId, fileName, languageName) {
-  let IdsToWrite = []
+  let prepareIdsToWrite = []
   let crawledIds = []
   let writeCount = 0
+  let shouldWrite = false
   crawledIds = data[0].relations.map(obj => {
     const newObj = {}
     newObj.id = obj.id
@@ -47,34 +64,37 @@ async function calculateListAndWrite (data, languageId, fileName, languageName) 
   })
 
   // weave together if necessary
+  console.log('Starting from scratch: ' + startingFromScratch)
   if (!startingFromScratch) {
-    console.log('start from scratch: ' + startingFromScratch)
-
     // Go through crawledIds and push objects to array
-    IdsToWrite = data[1]
+    console.log('Documents already stored: ' + data[1].length)
+    prepareIdsToWrite = data[1]
     crawledIds.forEach(crawledObj => {
       if (data[1].some(readObj => readObj.id === crawledObj.id)) {
         // console.log(crawledObj.id + ' already in readObj')
       } else {
-        IdsToWrite.push(crawledObj)
+        shouldWrite = true
+        prepareIdsToWrite.push(crawledObj)
         writeCount++
       }
     })
     // Sort on ID
-    IdsToWrite.sort((secondItem, firstItem) => firstItem.id - secondItem.id)
+    prepareIdsToWrite.sort((secondItem, firstItem) => firstItem.id - secondItem.id)
   } else {
-    IdsToWrite = crawledIds
-    writeCount = IdsToWrite.length
+    prepareIdsToWrite = crawledIds
+    writeCount = prepareIdsToWrite.length
   }
 
-  console.log('documents to write: ' + writeCount)
+  console.log('Documents to add: ' + writeCount)
 
   // write to file
-  try {
-    const promise = writeFile(fileName, JSON.stringify(IdsToWrite))
-    await promise
-  } catch (err) {
-    console.error(err)
+  if (shouldWrite) {
+    try {
+      const promise = writeFile(fileName, JSON.stringify(prepareIdsToWrite))
+      await promise
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
