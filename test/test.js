@@ -18,8 +18,6 @@ test('1: Fetch JSON, read file and compare object in read array 2: Compare lengt
     .then((data) => {
       const readObject = data[1].filter(obj => obj.id === '1.15778840')
       const expected = [{ id: '1.15778840', unixTime: 1639919176000, languageId: '1.13572943', languageName: 'Åarjelsaemien', crawled: false }]
-      console.log(readObject)
-      console.log(expected)
       t.deepEqual(readObject, expected)
       t.assert(data[1].length >= 375)
       t.assert(data[0].relations.length >= 375)
