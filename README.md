@@ -14,9 +14,6 @@ const southSami = {
   file: './lib/list.southSami.json'
 }
 
-// To change user-agent for the crawler
-// fetchOptions['user-agent'] = 'name of crawler/version - comment (i.e. contact-info)'
-
 // Bringing it all together, fetching URL and reading file, and if new content -> merging arrays and writing
 Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).catch(e => e)])
   .then((data) => {
@@ -26,3 +23,8 @@ Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).
     console.log('Error: ' + err)
   })
  ```
+
+ ## To change user-agent for the crawler
+```javaScript
+fetchOptions['user-agent'] = 'name of crawler/version - comment (i.e. contact-info)'
+```
