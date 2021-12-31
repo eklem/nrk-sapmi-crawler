@@ -1,5 +1,5 @@
 import test from 'ava'
-import { getList, readIfExists, calculateListAndWrite, fetchOptions } from '../index.js'
+import { fetchIds, crawlHeaders, readIfExists, calculateListAndWrite } from '../index.js'
 
 const southSami = {
   id: '1.13572943',
@@ -10,7 +10,7 @@ const southSami = {
 
 test('1: Fetch JSON, read file and compare object in read array 2: Compare length of array read 3: Compare length of array crawled', t => {
   t.plan(3)
-  return Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).catch(e => e)])
+  return Promise.all([fetchIds(southSami.url, crawlHeaders), readIfExists(southSami.file).catch(e => e)])
     .then((data) => {
       calculateListAndWrite(data, southSami.id, southSami.file, southSami.languageName)
       return (data)

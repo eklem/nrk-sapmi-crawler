@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "standard './*.js' && ava ./test/test.js"
+    "test": "standard './*.js' && ava ./test/testIdCrawler.js"
   },
   "repository": {
     "type": "git",

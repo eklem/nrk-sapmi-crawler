@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'fs/promises'
 
 let startingFromScratch = false
 
-const fetchOptions = {
+const crawlHeaders = {
   'user-agent': 'nrk-sapmi-crawler/0.0.4 - https://github.com/eklem/nrk-sapmi-crawler'
 }
 
@@ -16,7 +16,7 @@ class HTTPResponseError extends Error {
 }
 
 // Get list of article IDs from NRK
-async function getList (url, options) {
+async function fetchIds (url, options) {
   try {
     const response = await fetch(url, options)
     // console.log(response)
@@ -89,13 +89,17 @@ async function calculateListAndWrite (data, languageId, fileName, languageName) 
 
   // write to file
   if (shouldWrite) {
-    try {
-      const promise = writeFile(fileName, JSON.stringify(prepareIdsToWrite))
-      await promise
-    } catch (err) {
-      console.error(err)
-    }
+    writeJson(fileName, prepareIdsToWrite)
   }
 }
 
-export { getList, readIfExists, calculateListAndWrite, fetchOptions }
+async function writeJson (fileName, json) {
+  try {
+    const promise = writeFile(fileName, JSON.stringify(json))
+    await promise
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export { fetchIds, crawlHeaders, readIfExists, calculateListAndWrite, writeJson }
