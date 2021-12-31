@@ -7,7 +7,7 @@ Will crawl news bulletins in [Northern Sami](https://www.nrk.no/sapmi/o__asat---
 
 ## Getting a list of article IDs to crawl
  ```javaScript
- import { getList, readIfExists, calculateListAndWrite, fetchOptions } from '../index.js'
+ import { getList, crawlHeader, readIfExists, calculateListAndWrite } from '../index.js'
 
 const southSami = {
   id: '1.13572943',
@@ -17,7 +17,7 @@ const southSami = {
 }
 
 // Bringing it all together, fetching URL and reading file, and if new content -> merging arrays and writing
-Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).catch(e => e)])
+Promise.all([getList(southSami.url, crawlHeader), readIfExists(southSami.file).catch(e => e)])
   .then((data) => {
     calculateListAndWrite(data, southSami.id, southSami.file, southSami.languageName)
   })
@@ -28,5 +28,5 @@ Promise.all([getList(southSami.url, fetchOptions), readIfExists(southSami.file).
  
  ## To change user-agent for the crawler
 ```javaScript
-fetchOptions['user-agent'] = 'name of crawler/version - comment (i.e. contact-info)'
+crawlHeader['user-agent'] = 'name of crawler/version - comment (i.e. contact-info)'
 ```
