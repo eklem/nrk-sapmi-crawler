@@ -2,7 +2,7 @@
 import { chromium } from 'playwright'
 import { crawlHeaders } from './index.js'
 const crawlArray = [{ id: '1.15778840', unixTime: 1639919176000, languageId: '1.13572943', languageName: 'Åarjelsaemien', crawled: false }, { id: '1.15761886', unixTime: 1638894940000, languageId: '1.13572943', languageName: 'Åarjelsaemien', crawled: false }, { id: '1.15789637', unixTime: 1640782941000, languageId: '1.13572949', languageName: 'Davvisámegillii', crawled: false }]
-const delay = 10000
+const someTime = 10000
 
 async function crawl (crawlObject) {
   const url = 'https://nrk.no/' + crawlObject.id
@@ -29,13 +29,13 @@ async function crawl (crawlObject) {
   await browser.close()
 }
 
-const sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+const waitFor = (someTime) => new Promise((resolve) => setTimeout(resolve, someTime))
 
-async function start (crawlArray, delay) {
+async function start (crawlArray, someTime) {
   for (let i = 0; i < crawlArray.length; i++) {
-    await sleepNow(delay)
+    await waitFor(someTime)
     crawl(crawlArray[i])
   }
 }
 
-start(crawlArray, delay)
+start(crawlArray, someTime)
