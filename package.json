@@ -14,7 +14,7 @@
   "dependencies": {
     "batr": "^2.0.1",
     "node-fetch": "^3.2.0",
-    "words-n-numbers": "^6.0.2"
+    "words-n-numbers": "^7.0.0"
   },
   "keywords": [
     "nlp",
