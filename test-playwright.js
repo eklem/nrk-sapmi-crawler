@@ -1,8 +1,11 @@
 
 import { chromium } from 'playwright'
-import { crawlHeaders } from './index.js'
-const crawlArray = [{ id: '1.15778840', unixTime: 1639919176000, languageId: '1.13572943', languageName: 'Åarjelsaemien', crawled: false }, { id: '1.15761886', unixTime: 1638894940000, languageId: '1.13572943', languageName: 'Åarjelsaemien', crawled: false }, { id: '1.15789637', unixTime: 1640782941000, languageId: '1.13572949', languageName: 'Davvisámegillii', crawled: false }]
-const someTime = 10000
+import { crawlHeaders, readIfExists, writeJson } from './index.js'
+const someTime = 2000
+
+const idFile = './test.list.json'
+const contentFile = './test.content.json'
+const content = []
 
 async function crawl (crawlObject) {
   const url = 'https://nrk.no/' + crawlObject.id
@@ -14,7 +17,7 @@ async function crawl (crawlObject) {
   await page.goto(url)
   crawlContent.url = await page.url()
   crawlContent.title = await page.textContent('h2.bulletin-title')
-  crawlContent.body = await page.$$eval('div.bulletin-text p', (element) =>
+  crawlContent.body = await page.$$eval('.teaser-reference div.bulletin-text p', (element) =>
     element.map((e) => e.innerText)
   )
   crawlContent.img = {}
@@ -25,17 +28,32 @@ async function crawl (crawlObject) {
   crawlContent.unixTime = crawlObject.unixTime
   crawlContent.languageName = crawlObject.languageName
   crawlContent.languageId = crawlObject.languageId
+  content.push(crawlContent)
   console.log(crawlContent)
+  // console.log('content array length: ' + content.length)
   await browser.close()
 }
 
 const waitFor = (someTime) => new Promise((resolve) => setTimeout(resolve, someTime))
 
-async function start (crawlArray, someTime) {
-  for (let i = 0; i < crawlArray.length; i++) {
-    await waitFor(someTime)
-    crawl(crawlArray[i])
-  }
+async function getIds (idFile) {
+  return await readIfExists(idFile)
 }
 
-start(crawlArray, someTime)
+async function start (idFile, someTime) {
+  const idArray = await getIds(idFile)
+  console.log(idArray)
+  for (let i = 0; i < idArray.length; i++) {
+    console.log('contentn array length: ' + content.length)
+    if (!idArray[i].crawled) {
+      await waitFor(someTime)
+      await crawl(idArray[i])
+      idArray[i].crawled = true
+      console.log(idArray[i])
+    }
+  }
+  writeJson(contentFile, content)
+  writeJson(idFile, idArray)
+}
+
+start(idFile, someTime)
