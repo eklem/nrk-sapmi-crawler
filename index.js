@@ -95,7 +95,7 @@ async function calculateListAndWrite (data, languageId, fileName, languageName) 
 
 async function writeJson (fileName, json) {
   try {
-    const promise = writeFile(fileName, JSON.stringify(json))
+    const promise = writeFile(fileName, JSON.stringify(json, null, 2))
     await promise
   } catch (err) {
     console.error(err)
