@@ -10,7 +10,7 @@ Will crawl news bulletins in [Northern Sami](https://www.nrk.no/sapmi/o__asat---
 
 ## Getting a list of article IDs to crawl
  ```javaScript
- import { getList, crawlHeader, readIfExists, calculateListAndWrite } from '../index.js'
+ import { getList, crawlHeader, readIfExists, calculateIdListAndWrite } from '../index.js'
 
 const southSami = {
   id: '1.13572943',
@@ -32,4 +32,22 @@ Promise.all([getList(southSami.url, crawlHeader), readIfExists(southSami.file).c
  ## To change user-agent for the crawler
 ```javaScript
 crawlHeader['user-agent'] = 'name of crawler/version - comment (i.e. contact-info)'
+```
+
+## Getting the content from a list of IDs
+```javaScript
+import { crawlContentAndWrite } from 'nrk-sapmi-crawler'
+const appropriateTime = 2000
+
+const southSami = {
+  idFile: './datasets/list.southSami.json',
+  contentFile: './datasets/content.southSami.json'
+}
+
+
+async function crawl () {
+  await crawlContentAndWrite(southSami.idFile, southSami.contentFile, appropriateTime)
+}
+
+crawl()
 ```
