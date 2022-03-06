@@ -1,6 +1,6 @@
 {
   "name": "nrk-sapmi-crawler",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Crawler for NRK Sapmi news bulletins that will be the basis for Sami stopword lists and an example search engine for content in Sami.",
   "main": "index.js",
   "type": "module",
