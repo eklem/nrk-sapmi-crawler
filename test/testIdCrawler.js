@@ -1,5 +1,5 @@
 import test from 'ava'
-import { fetchIds, crawlHeaders, readIfExists, calculateListAndWrite } from '../index.js'
+import { fetchIds, crawlHeaders, readIfExists, calculateIdListAndWrite } from '../index.js'
 
 const southSami = {
   id: '1.13572943',
@@ -12,10 +12,12 @@ test('1: Fetch JSON, read file and compare object in read array 2: Compare lengt
   t.plan(3)
   return Promise.all([fetchIds(southSami.url, crawlHeaders), readIfExists(southSami.file).catch(e => e)])
     .then((data) => {
-      calculateListAndWrite(data, southSami.id, southSami.file, southSami.languageName)
+      // weawing togheter data and writing
+      calculateIdListAndWrite(data, southSami.id, southSami.file, southSami.languageName)
       return (data)
     })
     .then((data) => {
+      // Doing tests
       const readObject = data[1].filter(obj => obj.id === '1.15778840')
       const expected = [{ id: '1.15778840', unixTime: 1639919176000, languageId: '1.13572943', languageName: 'Åarjelsaemien', crawled: false }]
       t.deepEqual(readObject, expected)

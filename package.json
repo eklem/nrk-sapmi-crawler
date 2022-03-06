@@ -1,11 +1,13 @@
 {
   "name": "nrk-sapmi-crawler",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Crawler for NRK Sapmi news bulletins that will be the basis for Sami stopword lists and an example search engine for content in Sami.",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "standard './*.js' && ava ./test/testIdCrawler.js"
+    "clean": "rm ./test/lib/*.json",
+    "copy": "cp ./test/lib/list.southSami.json.backup ./test/lib/list.southSami.json && cp ./test/lib/content.southSami.json.backup ./test/lib/content.southSami.json",
+    "test": "standard './*.js' && npm run clean && ava ./test/testIdCrawler.js && npm run copy && ava ./test/testContentCrawler.js"
   },
   "repository": {
     "type": "git",
