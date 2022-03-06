@@ -1,5 +1,8 @@
 # nrk-sapmi-crawler
+[![NPM version](http://img.shields.io/npm/v/nrk-sapmi-crawler.svg?style=flat)](https://npmjs.org/package/nrk-sapmi-crawler)
+[![NPM downloads](http://img.shields.io/npm/dm/nrk-sapmi-crawler.svg?style=flat)](https://npmjs.org/package/nrk-sapmi-crawler) 
 [![tests](https://github.com/eklem/nrk-sapmi-crawler/actions/workflows/tests.yml/badge.svg)](https://github.com/eklem/nrk-sapmi-crawler/actions/workflows/tests.yml)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 Crawler for [NRK Sapmi news bulletins](https://www.nrk.no/sapmi/samegillii/) that will be the basis for [stopword-sami](https://github.com/eklem/stopword-sami) and an example search engine for content in Sami.
 
