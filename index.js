@@ -135,13 +135,13 @@ async function crawlContentAndWrite (idFile, contentFile, appropriateTime) {
   const idArray = await readIfExists(idFile)
   const contentRead = await readIfExists(contentFile)
   // console.log(idArray)
-  console.log(contentRead[1])
+  // console.log(contentRead[1])
   for (let i = 0; i < idArray.length; i++) {
     if (!idArray[i].crawled) {
       await waitFor(appropriateTime)
       const contentObject = await fetchContent(idArray[i], crawlHeaders)
       idArray[i].crawled = true
-      console.log(contentObject)
+      // console.log(contentObject)
       contentFetched.push(contentObject)
       console.log('content array length: ' + contentFetched.length)
     }
