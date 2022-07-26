@@ -47,14 +47,15 @@ async function fetchContent (idObject, crawlHeaders) {
   crawlContent.body = await page.$$eval('.teaser-reference div.bulletin-text p', (element) =>
     element.map((e) => e.innerText)
   )
-  crawlContent.img = {}
-  crawlContent.img.srcset = await page.$eval('div.text-body ~ figure > div.responsive-img img', img => img.srcset).catch(console.error)
-  crawlContent.img.description = await page.$eval('div.text-body ~ figure > div.responsive-img img', img => img.alt).catch(console.error)
-  crawlContent.img.credit = await page.$eval('div.text-body ~ figure > div.responsive-img img', img => img.title).catch(console.error)
-  if (Object.keys(crawlContent.img).length === 0) {
-    crawlContent.img = undefined
-    console.log(crawlContent.img)
-  }
+  // ## Skipping images for now, the selectors are not precise enough, so getting a lot of non-article images added ##
+  // crawlContent.img = {}
+  // crawlContent.img.srcset = await page.$eval('div.text-body ~ figure > div.responsive-img img', img => img.srcset).catch(console.error)
+  // crawlContent.img.description = await page.$eval('div.text-body ~ figure > div.responsive-img img', img => img.alt).catch(console.error)
+  // crawlContent.img.credit = await page.$eval('div.text-body ~ figure > div.responsive-img img', img => img.title).catch(console.error)
+  // if (Object.keys(crawlContent.img).length === 0) {
+  //   crawlContent.img = undefined
+  //   console.log(crawlContent.img)
+  // }
   crawlContent.year = await page.textContent('span.bulletin-publish-year')
   crawlContent.unixTime = idObject.unixTime
   crawlContent.languageName = idObject.languageName

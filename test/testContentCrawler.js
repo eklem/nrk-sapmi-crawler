@@ -19,11 +19,6 @@ test('1: Read ID file, crawl data, check if correct. 2: Check if array lengt is 
       body: [
         'Daan jïjjen Russlaante eelki Ukrainan vööste dåarodh.\n– Raeffie mijjen kontinentesne lea slahtjegamme, NATO:n generaaletjaelije Jens Stoltenberg pressekonferansesne jeahta.\nUkraina frïjjevoetem åtna sov laanten bijjelen jïjtje nænnoestidh. Russlaante Ukrainan frïjjevoetem låavta. Dah aaj dam frïjje jïh demokraateles Europam låevtieh, Stoltenberg jeahta.'
       ],
-      img: {
-        srcset: 'https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQyfCLiWVxzqVIknE0GVp9jg.jpg 80w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQMIRtuUC4fltIknE0GVp9jg.jpg 160w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQG8MBDvoFNUBIknE0GVp9jg.jpg 350w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQO9hNxq-K1p1IknE0GVp9jg.jpg 450w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQaGHcCWacQcZIknE0GVp9jg.jpg 650w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQhxI-E_qAz-lIknE0GVp9jg.jpg 1000w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQ-4E5QkVSe2RIknE0GVp9jg.jpg 1200w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQb5RvtMQisFlIknE0GVp9jg.jpg 1600w, https://gfx.nrk.no/buR9sotqeDd85Qk1RnDupQ528ztZeOK_pIknE0GVp9jg.jpg 2000w',
-        description: 'Politiet slo hardt ned på ein antikrigsdemonstrasjon i Moskva, Russland, 3. mars 2022.',
-        credit: 'Foto: - / AFP'
-      },
       year: '2022',
       unixTime: 1645731285000,
       languageName: 'Åarjelsaemien',
@@ -36,7 +31,6 @@ test('1: Read ID file, crawl data, check if correct. 2: Check if array lengt is 
       body: [
         'Daen biejjien fylhkenraerien åejvie Thomas Norvoll, departemeente jïh Bane Nor tjåanghkoem åtneme. Dah Nordlandsbanen bïjre soptestin, jïh guktie gellie sarvh ovlahkojne ruevtieraajrosne båvvalgieh. Dah sïemies sjïdteme dah tjuerieh haakenem båetijen giesien öörnedidh.'
       ],
-      img: {},
       year: '2022',
       unixTime: 1645556121000,
       languageName: 'Åarjelsaemien',
