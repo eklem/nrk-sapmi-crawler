@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "batr": "^2.1.9",
-    "node-fetch": "^3.3.1",
+    "node-fetch": "^3.3.2",
     "words-n-numbers": "^9.1.1"
   },
   "keywords": [
